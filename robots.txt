@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akaazuaterngu.github.io/sitemap.xml

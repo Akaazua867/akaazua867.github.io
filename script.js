@@ -1,5 +1,5 @@
 /**
- * Xavier Akaazua Terngu — Interactive Portfolio Script
+ * Emmanuel Terngu Akaazua — Interactive Portfolio Script
  * Upgraded with GreenSock Animation Platform (GSAP), ScrollTrigger, and Lenis Smooth Scroll
  * Supports Light & Dark Theme Toggling and Scroll Management
  */
@@ -107,8 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const preloader = document.getElementById("preloader");
     if (!preloader) return;
 
-    const circle = preloader.querySelector(".logo-circle");
-    const chars = preloader.querySelectorAll(".logo-char");
+    const outerRing = preloader.querySelector(".movie-outer-ring");
+    const innerRing = preloader.querySelector(".movie-inner-ring");
+    const sweep = preloader.querySelector(".movie-sweep");
+    const spiral = preloader.querySelector(".movie-spiral");
     const name = preloader.querySelector(".preloader-name");
     const line = preloader.querySelector(".preloader-line");
     const role = preloader.querySelector(".preloader-role");
@@ -123,6 +125,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Set initial styles for fallback safety
     gsap.set([line, role], { opacity: 0 });
+    gsap.set(spiral, { strokeDashoffset: 1000 });
+    gsap.set(sweep, { rotation: 0, transformOrigin: "50% 50%" });
+
+    // Infinite rotation for the vintage countdown sweep line
+    const sweepTween = gsap.to(sweep, {
+      rotation: 360,
+      transformOrigin: "50% 50%",
+      duration: 2.0,
+      repeat: -1,
+      ease: "none"
+    });
+
+    // Infinite rotation for the inner spiral swirl (spinning counter-clockwise for vortex effect)
+    const spiralTween = gsap.to(spiral, {
+      rotation: -360,
+      transformOrigin: "50% 50%",
+      duration: 3.0,
+      repeat: -1,
+      ease: "none"
+    });
 
     // GSAP Timeline for elegant cinematic loader
     const tl = gsap.timeline({
@@ -132,6 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
           duration: 0.8,
           ease: "power4.inOut",
           onComplete: () => {
+            // Stop infinite tweens to save resources
+            sweepTween.kill();
+            spiralTween.kill();
             preloader.remove();
             document.body.classList.add("loaded");
             // Unlock scroll after loader slides away
@@ -142,31 +167,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // 1. Draw geometric SVG circle
-    tl.to(circle, {
+    // 1. Draw geometric SVG spiral (swirl)
+    tl.to(spiral, {
       strokeDashoffset: 0,
-      duration: 1.0,
+      duration: 1.5,
       ease: "power2.inOut"
     });
 
-    // 2. Draw initials XA lines
-    tl.to(chars, {
-      strokeDashoffset: 0,
-      stagger: 0.08,
-      duration: 0.5,
-      ease: "power2.out"
-    }, "-=0.6");
-
-    // 3. Cinematic Focus on name (blur off, fade in, tracking letter-spacing expansion)
+    // 2. Cinematic Focus on name (blur off, fade in, tracking letter-spacing expansion)
     tl.to(name, {
       opacity: 1,
       filter: "blur(0px)",
       letterSpacing: "0.15em",
       duration: 1.0,
       ease: "power3.out"
-    }, "-=0.3");
+    }, "-=0.5");
 
-    // 4. Expand line
+    // 3. Expand line
     tl.to(line, {
       scaleX: 1,
       opacity: 1,
@@ -174,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out"
     }, "-=0.6");
 
-    // 5. Reveal role subtitle
+    // 4. Reveal role subtitle
     tl.to(role, {
       opacity: 1,
       y: 0,
@@ -182,8 +199,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power2.out"
     }, "-=0.4");
 
-    // 6. Luxury hold
-    tl.to({}, { duration: 0.5 });
+    // 5. Luxury hold
+    tl.to({}, { duration: 0.8 });
   }
 
   function initPageEntrance() {
@@ -251,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let mouseX = 0, mouseY = 0;
     let currentX = 0, currentY = 0;
-    const ease = 0.18;
+    const ease = 0.35; // Increased speed (from 0.18) for snappy, responsive tracking
 
     document.addEventListener("mousemove", (e) => {
       mouseX = e.clientX;
@@ -279,7 +296,8 @@ document.addEventListener("DOMContentLoaded", () => {
         target.closest("textarea") ||
         target.closest("[data-cursor-hover]") ||
         target.closest(".carousel-dot") ||
-        target.closest(".carousel-nav")
+        target.closest(".carousel-nav") ||
+        target.closest(".work-case-card")
       ) {
         cursor.classList.add("cursor-hovered");
       } else {
@@ -723,6 +741,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Intercept default demo access key
+      const accessKeyInput = form.querySelector('input[name="access_key"]');
+      if (accessKeyInput && accessKeyInput.value === "YOUR_ACCESS_KEY_HERE") {
+        successMsg.style.color = "#ef4444";
+        successMsg.innerHTML = "✗ Webform is in demo mode (missing access key). Please send an email directly using the options on the left.";
+        successMsg.classList.add("show");
+        setTimeout(() => {
+          successMsg.classList.remove("show");
+        }, 8000);
+        return;
+      }
+
       const submitBtn = form.querySelector(".btn-submit");
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
@@ -764,6 +794,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   initContactForm();
+
+  // ==========================================================================
+  // 15b. COPY EMAIL TO CLIPBOARD FEATURE
+  // ==========================================================================
+  function initCopyEmail() {
+    const copyBtn = document.getElementById("btn-copy-email");
+    if (!copyBtn) return;
+
+    const emailAddress = "emmanuelakaazua2@gmail.com";
+
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(emailAddress)
+        .then(() => {
+          copyBtn.textContent = "Copied! ✓";
+          copyBtn.classList.add("copied");
+          
+          setTimeout(() => {
+            copyBtn.textContent = "Copy Email Address";
+            copyBtn.classList.remove("copied");
+          }, 3000);
+        })
+        .catch(err => {
+          console.error("Clipboard copy failed: ", err);
+          // Fallback in case clipboard API isn't supported / allowed
+          const tempInput = document.createElement("input");
+          tempInput.value = emailAddress;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          try {
+            document.execCommand("copy");
+            copyBtn.textContent = "Copied! ✓";
+            copyBtn.classList.add("copied");
+            setTimeout(() => {
+              copyBtn.textContent = "Copy Email Address";
+              copyBtn.classList.remove("copied");
+            }, 3000);
+          } catch (e) {
+            copyBtn.textContent = "Copy Failed ✗";
+          }
+          document.body.removeChild(tempInput);
+        });
+    });
+  }
+  initCopyEmail();
 
   // ==========================================================================
   // 16. SHOWCASE CAROUSELS SYSTEM
@@ -875,4 +949,259 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   initTextPopups();
+  
+  // ==========================================================================
+  // 17b. CASE STUDY MODAL CONTROLLER
+  // ==========================================================================
+  const projectData = {
+    meetsession: {
+      title: "MEETSESSION",
+      category: "Performance Marketing & Content Strategy",
+      image: "images/Devon-images/devon1.jpeg",
+      description: "A virtual platform built to streamline online video interactions.",
+      challenge: "Low initial user activation due to high product complexity.",
+      action: "Designed a simplified onboarding flow and targeted social campaign tutorials.",
+      result: "Grew weekly active users from 0 to 500 in the first 30 days.",
+      liveUrl: ""
+    },
+    judicai: {
+      title: "JudicAI",
+      category: "Product Launch & Performance Marketing",
+      image: "images/Devon-images/devon3.jpeg",
+      description: "An AI-powered LegalTech tool built to automate legal case research.",
+      challenge: "Heavy user friction and distrust from traditional legal practitioners.",
+      action: "Engineered interactive product demos and a narrative campaign showing time saved.",
+      result: "Scaled active usage from 0 to 56 Nigerian courts within two months.",
+      liveUrl: ""
+    },
+    wanahomes: {
+      title: "Wana Homes",
+      category: "Brand Identity & Print Design",
+      image: "images/wana-homes/wana1.jpeg",
+      description: "A real estate agency focusing on modern residential properties.",
+      challenge: "Inconsistent visual branding across channels diluted brand trust.",
+      action: "Designed a cohesive brand system, digital templates, and physical print assets.",
+      result: "Launched a unified brand presence across web, social, and print materials.",
+      liveUrl: ""
+    },
+    stoneoak: {
+      title: "Stone Oak",
+      category: "Corporate Identity & Design Systems",
+      image: "images/stone-oak/stoneoak1.jpeg",
+      description: "A premium corporate brand offering corporate consulting services.",
+      challenge: "Dated marketing assets failed to reflect high-ticket consulting value.",
+      action: "Developed an executive typography standard, layout systems, and print assets.",
+      result: "Established a premium editorial brand identity that supported high-value consulting bids.",
+      liveUrl: ""
+    }
+  };
+
+  function initProjectModalCaseStudy() {
+    const modal = document.getElementById("case-study-modal");
+    if (!modal) return;
+
+    const modalImg = document.getElementById("modal-img");
+    const modalEyebrow = document.getElementById("modal-eyebrow");
+    const modalTitle = document.getElementById("modal-title");
+    const modalDesc = document.getElementById("modal-desc");
+    const modalChallenge = document.getElementById("modal-challenge");
+    const modalAction = document.getElementById("modal-action");
+    const modalResult = document.getElementById("modal-result");
+    const modalLinkContainer = document.getElementById("modal-link-container");
+    const modalLink = document.getElementById("modal-link");
+    const closeBtn = modal.querySelector(".modal-close");
+    const scrollBtn = document.getElementById("modal-scroll-btn");
+    const scrollTopBtn = document.getElementById("modal-scroll-top-btn");
+ 
+    let lastFocusedEl = null;
+ 
+    function openModal(projectKey, triggerEl) {
+      const data = projectData[projectKey];
+      if (!data) return;
+ 
+      lastFocusedEl = triggerEl;
+ 
+      // Populate content
+      if (modalImg) {
+        modalImg.src = data.image;
+        modalImg.alt = `${data.title} Case Study Cover`;
+      }
+      if (modalEyebrow) modalEyebrow.textContent = data.category;
+      if (modalTitle) modalTitle.textContent = data.title;
+      if (modalDesc) modalDesc.textContent = data.description;
+      if (modalChallenge) modalChallenge.textContent = data.challenge;
+      if (modalAction) modalAction.textContent = data.action;
+      if (modalResult) modalResult.textContent = data.result;
+ 
+      if (modalLinkContainer && modalLink) {
+        if (data.liveUrl) {
+          modalLink.href = data.liveUrl;
+          modalLinkContainer.style.display = "block";
+        } else {
+          modalLinkContainer.style.display = "none";
+        }
+      }
+ 
+      // Reset scroll position on opening
+      modal.scrollTop = 0;
+ 
+      // Open transition
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      if (typeof lenis !== "undefined" && lenis) {
+        lenis.stop();
+      }
+ 
+      // Check if content is scrollable to display scroll button
+      setTimeout(() => {
+        if (scrollBtn) {
+          if (modal.scrollHeight > modal.clientHeight + 40) {
+            scrollBtn.style.opacity = "1";
+            scrollBtn.style.pointerEvents = "auto";
+          } else {
+            scrollBtn.style.opacity = "0";
+            scrollBtn.style.pointerEvents = "none";
+          }
+        }
+      }, 350);
+ 
+      // Focus close button for accessibility
+      if (closeBtn) {
+        setTimeout(() => closeBtn.focus(), 50);
+      }
+    }
+ 
+    function closeModal() {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (typeof lenis !== "undefined" && lenis) {
+        lenis.start();
+      }
+ 
+      if (scrollBtn) {
+        scrollBtn.style.opacity = "0";
+        scrollBtn.style.pointerEvents = "none";
+      }
+
+      if (scrollTopBtn) {
+        scrollTopBtn.classList.remove("visible");
+      }
+ 
+      // Restore focus to card trigger
+      if (lastFocusedEl) {
+        setTimeout(() => lastFocusedEl.focus(), 50);
+      }
+    }
+ 
+    // Attach click events to cards
+    document.querySelectorAll(".work-case-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const projectKey = card.getAttribute("data-project");
+        openModal(projectKey, card);
+      });
+    });
+ 
+    // Close button click
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+ 
+    // Click outside wrapper closes modal
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal || !e.target.closest(".modal-wrapper")) {
+        closeModal();
+      }
+    });
+ 
+    // Listen to scroll to fade out scroll button and show scroll-to-top button
+    modal.addEventListener("scroll", () => {
+      if (scrollBtn) {
+        const opacity = Math.max(0, 1 - modal.scrollTop / 150);
+        scrollBtn.style.opacity = opacity;
+        if (opacity === 0) {
+          scrollBtn.style.pointerEvents = "none";
+        } else {
+          scrollBtn.style.pointerEvents = "auto";
+        }
+      }
+      if (scrollTopBtn) {
+        if (modal.scrollTop > 300) {
+          scrollTopBtn.classList.add("visible");
+        } else {
+          scrollTopBtn.classList.remove("visible");
+        }
+      }
+    });
+ 
+    // Scroll button click behavior
+    if (scrollBtn) {
+      scrollBtn.addEventListener("click", () => {
+        const targetScroll = modalImg ? modalImg.offsetHeight - 40 : 300;
+        modal.scrollTo({
+          top: targetScroll,
+          behavior: "smooth"
+        });
+      });
+    }
+
+    // Scroll to top button click behavior
+    if (scrollTopBtn) {
+      scrollTopBtn.addEventListener("click", () => {
+        modal.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+    }
+
+    // Escape key & Tab trapping
+    document.addEventListener("keydown", (e) => {
+      if (!modal.classList.contains("active")) return;
+
+      if (e.key === "Escape") {
+        closeModal();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusables = Array.from(modal.querySelectorAll("button, a")).filter(el => {
+          return el.tabIndex !== -1 && (el.offsetWidth > 0 || el.offsetHeight > 0);
+        });
+
+        if (focusables.length === 0) return;
+
+        const firstFocusable = focusables[0];
+        const lastFocusable = focusables[focusables.length - 1];
+
+        if (e.shiftKey) { // Shift + Tab
+          if (document.activeElement === firstFocusable) {
+            lastFocusable.focus();
+            e.preventDefault();
+          }
+        } else { // Tab
+          if (document.activeElement === lastFocusable) {
+            firstFocusable.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+  }
+  initProjectModalCaseStudy();
+
+  // 18. IMAGE PRE-FETCHING FOR CASE STUDIES
+  function prefetchCaseStudyImages() {
+    window.addEventListener("load", () => {
+      Object.keys(projectData).forEach(key => {
+        const imgUrl = projectData[key].image;
+        if (imgUrl) {
+          const img = new Image();
+          img.src = imgUrl;
+        }
+      });
+    });
+  }
+  prefetchCaseStudyImages();
 });
