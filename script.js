@@ -616,6 +616,14 @@ document.addEventListener("DOMContentLoaded", () => {
       hamburgerToggle.classList.toggle("active");
       mobileMenuOverlay.classList.toggle("active");
       document.body.style.overflow = isExpanded ? "unset" : "hidden";
+      
+      if (typeof lenis !== "undefined" && lenis) {
+        if (isExpanded) {
+          lenis.start();
+        } else {
+          lenis.stop();
+        }
+      }
     }
 
     function closeMobileMenu() {
@@ -623,11 +631,22 @@ document.addEventListener("DOMContentLoaded", () => {
       hamburgerToggle.classList.remove("active");
       mobileMenuOverlay.classList.remove("active");
       document.body.style.overflow = "unset";
+      
+      if (typeof lenis !== "undefined" && lenis) {
+        lenis.start();
+      }
     }
 
     hamburgerToggle.addEventListener("click", toggleMobileMenu);
     mobileMenuClose.addEventListener("click", closeMobileMenu);
     mobileNavLinks.forEach(link => link.addEventListener("click", closeMobileMenu));
+
+    // Escape key closes mobile menu
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileMenuOverlay.classList.contains("active")) {
+        closeMobileMenu();
+      }
+    });
 
     let lastScrollY = window.scrollY;
 
@@ -816,6 +835,35 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
 
   // ==========================================================================
+  // 15a. FORM CHARACTER COUNT LIMIT CUES
+  // ==========================================================================
+  function initFormCharCount() {
+    const textarea = document.getElementById("message");
+    const counter = document.getElementById("message-char-count");
+    if (!textarea || !counter) return;
+
+    textarea.addEventListener("input", () => {
+      const length = textarea.value.length;
+      counter.textContent = `${length} / 500`;
+      
+      if (length >= 480) {
+        counter.style.color = "var(--accent)";
+      } else {
+        counter.style.color = "var(--text-muted)";
+      }
+    });
+
+    const form = document.getElementById("contact-form");
+    if (form) {
+      form.addEventListener("reset", () => {
+        counter.textContent = "0 / 500";
+        counter.style.color = "var(--text-muted)";
+      });
+    }
+  }
+  initFormCharCount();
+
+  // ==========================================================================
   // 15b. COPY EMAIL TO CLIPBOARD FEATURE
   // ==========================================================================
   function initCopyEmail() {
@@ -901,27 +949,27 @@ document.addEventListener("DOMContentLoaded", () => {
     meetsession: {
       title: "MEETSESSION",
       category: "Performance Marketing & Content Strategy",
-      image: "images/Devon-images/devon1.jpeg",
+      image: [
+        "images/Devon-images/devon1.jpeg",
+        "images/Devon-images/devon2.jpeg",
+        "images/Devon-images/devon4.jpeg"
+      ],
       description: "A virtual platform built to streamline online video interactions.",
       challenge: "Low initial user activation due to high product complexity.",
       action: "Designed a simplified onboarding flow and targeted social campaign tutorials.",
       result: "Grew weekly active users from 0 to 500 in the first 30 days.",
       liveUrl: ""
     },
-    judicai: {
-      title: "JudicAI",
-      category: "Product Launch & Performance Marketing",
-      image: "images/Devon-images/devon3.jpeg",
-      description: "An AI-powered LegalTech tool built to automate legal case research.",
-      challenge: "Heavy user friction and distrust from traditional legal practitioners.",
-      action: "Engineered interactive product demos and a narrative campaign showing time saved.",
-      result: "Scaled active usage from 0 to 56 Nigerian courts within two months.",
-      liveUrl: ""
-    },
     wanahomes: {
       title: "Wana Homes",
       category: "Brand Identity & Print Design",
-      image: "images/wana-homes/wana1.jpeg",
+      image: [
+        "images/wana-homes/wana1.jpeg",
+        "images/wana-homes/wana2.jpeg",
+        "images/wana-homes/wana3.jpeg",
+        "images/wana-homes/wana4.jpeg",
+        "images/wana-homes/wana5.jpeg"
+      ],
       description: "A real estate agency focusing on modern residential properties.",
       challenge: "Inconsistent visual branding across channels diluted brand trust.",
       action: "Designed a cohesive brand system, digital templates, and physical print assets.",
@@ -931,7 +979,10 @@ document.addEventListener("DOMContentLoaded", () => {
     stoneoak: {
       title: "Stone Oak",
       category: "Corporate Identity & Design Systems",
-      image: "images/stone-oak/stoneoak1.jpeg",
+      image: [
+        "images/stone-oak/stoneoak1.jpeg",
+        "images/stone-oak/stoneoak2.jpeg"
+      ],
       description: "A premium corporate brand offering corporate consulting services.",
       challenge: "Dated marketing assets failed to reflect high-ticket consulting value.",
       action: "Developed an executive typography standard, layout systems, and print assets.",
@@ -944,7 +995,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("case-study-modal");
     if (!modal) return;
 
-    const modalImg = document.getElementById("modal-img");
+    const modalGallery = document.getElementById("modal-gallery");
+    const modalDots = document.getElementById("modal-gallery-dots");
     const modalEyebrow = document.getElementById("modal-eyebrow");
     const modalTitle = document.getElementById("modal-title");
     const modalDesc = document.getElementById("modal-desc");
@@ -958,6 +1010,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const scrollTopBtn = document.getElementById("modal-scroll-top-btn");
  
     let lastFocusedEl = null;
+    let activeProjectImages = [];
  
     function openModal(projectKey, triggerEl) {
       const data = projectData[projectKey];
@@ -965,11 +1018,56 @@ document.addEventListener("DOMContentLoaded", () => {
  
       lastFocusedEl = triggerEl;
  
-      // Populate content
-      if (modalImg) {
-        modalImg.src = data.image;
-        modalImg.alt = `${data.title} Case Study Cover`;
+      // Populate dynamic horizontal gallery images
+      if (modalGallery) {
+        modalGallery.scrollLeft = 0; // Reset gallery scroll position to first image
+        modalGallery.innerHTML = ""; // Clear existing images
+        if (modalDots) modalDots.innerHTML = ""; // Clear existing dots
+        
+        const images = Array.isArray(data.image) ? data.image : [data.image];
+        activeProjectImages = images;
+        images.forEach((imgUrl, index) => {
+          const img = document.createElement("img");
+          img.src = imgUrl;
+          img.alt = `${data.title} Case Study Image ${index + 1}`;
+          img.className = "modal-gallery-img";
+          img.loading = "lazy";
+          modalGallery.appendChild(img);
+          
+          // Generate slide dots
+          if (images.length > 1 && modalDots) {
+            const dot = document.createElement("button");
+            dot.className = `modal-gallery-dot${index === 0 ? " active" : ""}`;
+            dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+            dot.addEventListener("click", () => {
+              const slideWidth = modalGallery.clientWidth;
+              modalGallery.scrollTo({
+                left: slideWidth * index,
+                behavior: "smooth"
+              });
+            });
+            modalDots.appendChild(dot);
+          }
+        });
+        
+        // Listen to horizontal scrolling to toggle active dot
+        if (images.length > 1 && modalDots) {
+          modalGallery.addEventListener("scroll", () => {
+            const slideWidth = modalGallery.clientWidth;
+            if (slideWidth === 0) return;
+            const activeIndex = Math.round(modalGallery.scrollLeft / slideWidth);
+            const dots = modalDots.querySelectorAll(".modal-gallery-dot");
+            dots.forEach((dot, dotIdx) => {
+              if (dotIdx === activeIndex) {
+                dot.classList.add("active");
+              } else {
+                dot.classList.remove("active");
+              }
+            });
+          });
+        }
       }
+
       if (modalEyebrow) modalEyebrow.textContent = data.category;
       if (modalTitle) modalTitle.textContent = data.title;
       if (modalDesc) modalDesc.textContent = data.description;
@@ -1019,6 +1117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeModal() {
       modal.classList.remove("active");
       modal.setAttribute("aria-hidden", "true");
+      activeProjectImages = [];
       document.body.style.overflow = "";
       if (typeof lenis !== "undefined" && lenis) {
         lenis.start();
@@ -1082,7 +1181,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Scroll button click behavior
     if (scrollBtn) {
       scrollBtn.addEventListener("click", () => {
-        const targetScroll = modalImg ? modalImg.offsetHeight - 40 : 300;
+        const modalHero = modal.querySelector(".modal-hero");
+        const targetScroll = modalHero ? modalHero.offsetHeight - 40 : 300;
         modal.scrollTo({
           top: targetScroll,
           behavior: "smooth"
@@ -1107,6 +1207,38 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === "Escape") {
         closeModal();
         return;
+      }
+
+      if (e.key === "ArrowLeft") {
+        if (activeProjectImages.length > 1 && modalGallery) {
+          const slideWidth = modalGallery.clientWidth;
+          if (slideWidth > 0) {
+            const activeIndex = Math.round(modalGallery.scrollLeft / slideWidth);
+            if (activeIndex > 0) {
+              modalGallery.scrollTo({
+                left: slideWidth * (activeIndex - 1),
+                behavior: "smooth"
+              });
+              e.preventDefault();
+            }
+          }
+        }
+      }
+
+      if (e.key === "ArrowRight") {
+        if (activeProjectImages.length > 1 && modalGallery) {
+          const slideWidth = modalGallery.clientWidth;
+          if (slideWidth > 0) {
+            const activeIndex = Math.round(modalGallery.scrollLeft / slideWidth);
+            if (activeIndex < activeProjectImages.length - 1) {
+              modalGallery.scrollTo({
+                left: slideWidth * (activeIndex + 1),
+                behavior: "smooth"
+              });
+              e.preventDefault();
+            }
+          }
+        }
       }
 
       if (e.key === "Tab") {
@@ -1139,11 +1271,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function prefetchCaseStudyImages() {
     window.addEventListener("load", () => {
       Object.keys(projectData).forEach(key => {
-        const imgUrl = projectData[key].image;
-        if (imgUrl) {
-          const img = new Image();
-          img.src = imgUrl;
-        }
+        const images = Array.isArray(projectData[key].image) ? projectData[key].image : [projectData[key].image];
+        images.forEach(imgUrl => {
+          if (imgUrl) {
+            const img = new Image();
+            img.src = imgUrl;
+          }
+        });
       });
     });
   }

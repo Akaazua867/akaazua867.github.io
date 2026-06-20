@@ -83,17 +83,7 @@
       "genre": "Performance Marketing & Content Strategy",
       "description": "MEETSESSION Case Study: Simplified onboarding flow and social campaign tutorials that grew weekly active users from 0 to 500 in 30 days."
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "CreativeWork",
-      "name": "JudicAI Case Study",
-      "creator": {
-        "@type": "Person",
-        "name": "Emmanuel Terngu Akaazua"
-      },
-      "genre": "Product Launch & Performance Marketing",
-      "description": "JudicAI Case Study: Narrative campaign and interactive product demos that scaled active usage from 0 to 56 Nigerian courts within two months."
-    },
+
     {
       "@context": "https://schema.org",
       "@type": "CreativeWork",
@@ -250,8 +240,8 @@
               <span class="metric-label">Users acquired in 30 days</span>
             </div>
             <div class="metric-card" data-tilt>
-              <span class="metric-number" data-target="56">0</span>
-              <span class="metric-label">Courts reached with JudicAI</span>
+              <span class="metric-number" data-target="15">0</span><span class="metric-suffix">+</span>
+              <span class="metric-label">Campaigns launched</span>
             </div>
             <div class="metric-card" data-tilt>
               <span class="metric-number" data-target="3">0</span>
@@ -389,20 +379,7 @@
             </div>
           </button>
           
-          <!-- Item 2: JudicAI -->
-          <button class="work-case-card reveal-item" data-project="judicai" data-cursor-hover aria-haspopup="dialog" data-tilt>
-            <div class="card-visual">
-              <img src="images/Devon-images/devon3.jpeg" alt="JudicAI Branding" class="card-cover-img" loading="lazy">
-              <div class="card-gradient-overlay"></div>
-            </div>
-            <div class="card-info">
-              <span class="card-eyebrow">Product Launch &amp; Performance Marketing</span>
-              <h3 class="card-title">JudicAI</h3>
-              <p class="card-hook">Scaled active usage from 0 to 56 Nigerian courts within two months.</p>
-              <span class="card-cta">View Case Study &rarr;</span>
-            </div>
-          </button>
-          
+
           <!-- Item 3: Wana Homes -->
           <button class="work-case-card reveal-item" data-project="wanahomes" data-cursor-hover aria-haspopup="dialog" data-tilt>
             <div class="card-visual">
@@ -600,8 +577,8 @@
           
           <!-- Stat 2 -->
           <div class="stat-item">
-            <span class="stat-number" data-target="56">0</span>
-            <span class="stat-label">Courts reached with JudicAI</span>
+            <span class="stat-number" data-target="15">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Campaigns launched</span>
           </div>
           
           <div class="stat-divider" aria-hidden="true"></div>
@@ -609,7 +586,7 @@
           <!-- Stat 3 -->
           <div class="stat-item">
             <span class="stat-number" data-target="3">0</span>
-            <span class="stat-label">Industries: AI, Health &amp; LegalTech</span>
+            <span class="stat-label">Industries: SaaS, Real Estate &amp; Consulting</span>
           </div>
           
           <div class="stat-divider" aria-hidden="true"></div>
@@ -617,7 +594,7 @@
           <!-- Stat 4 -->
           <div class="stat-item">
             <span class="stat-number" data-target="2">0</span>
-            <span class="stat-label">Countries: Nigeria &amp; Ivory Coast</span>
+            <span class="stat-label">Countries active: Nigeria &amp; region</span>
           </div>
           
           <div class="stat-divider" aria-hidden="true"></div>
@@ -766,8 +743,11 @@
               </div>
               
               <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Hi Emmanuel, let's talk about..." required></textarea>
+                <div class="form-label-row">
+                  <label for="message">Message</label>
+                  <span id="message-char-count" class="form-char-count">0 / 500</span>
+                </div>
+                <textarea id="message" name="message" maxlength="500" placeholder="Hi Emmanuel, let's talk about..." required></textarea>
               </div>
               
               <button type="submit" class="btn btn-primary btn-submit" data-cursor-hover>Send Message &rarr;</button>
@@ -839,7 +819,12 @@
       <button class="modal-close" aria-label="Close case study" data-cursor-hover>&times;</button>
       <div class="modal-content">
         <div class="modal-hero">
-          <img id="modal-img" src="" alt="" class="modal-hero-img">
+          <div id="modal-gallery" class="modal-gallery">
+            <!-- Dynamic images injected here -->
+          </div>
+          <div id="modal-gallery-dots" class="modal-gallery-dots">
+            <!-- Dynamic dot indicators injected here -->
+          </div>
           <button id="modal-scroll-btn" class="modal-hero-scroll-btn" data-cursor-hover>
             Scroll Down <span>&darr;</span>
           </button>
