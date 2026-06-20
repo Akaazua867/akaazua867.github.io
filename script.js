@@ -266,13 +266,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!cursor || window.matchMedia("(hover: none)").matches) return;
 
+    // Set initial opacity to 0 to avoid rendering at (0,0) on page load
+    cursor.style.opacity = "0";
+
     let mouseX = 0, mouseY = 0;
     let currentX = 0, currentY = 0;
+    let hasMoved = false;
     const ease = 0.35; // Increased speed (from 0.18) for snappy, responsive tracking
 
     document.addEventListener("mousemove", (e) => {
+      if (!hasMoved) {
+        hasMoved = true;
+        cursor.style.opacity = "1";
+      }
       mouseX = e.clientX;
       mouseY = e.clientY;
+    });
+
+    // Hide cursor when leaving the window
+    document.addEventListener("mouseleave", () => {
+      cursor.style.opacity = "0";
+    });
+
+    // Show cursor when entering the window (if mouse has already moved once)
+    document.addEventListener("mouseenter", () => {
+      if (hasMoved) {
+        cursor.style.opacity = "1";
+      }
     });
 
     function update() {
@@ -839,83 +859,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   initCopyEmail();
 
-  // ==========================================================================
-  // 16. SHOWCASE CAROUSELS SYSTEM
-  // ==========================================================================
-  function initShowcaseCarousels() {
-    const carousels = document.querySelectorAll(".showcase-carousel");
-    
-    carousels.forEach(carousel => {
-      const slidesContainer = carousel.querySelector(".carousel-slides");
-      const slides = carousel.querySelectorAll(".carousel-slide");
-      const prevBtn = carousel.querySelector(".carousel-nav.prev");
-      const nextBtn = carousel.querySelector(".carousel-nav.next");
-      const dotsContainer = carousel.querySelector(".carousel-indicators");
-      
-      let currentIndex = 0;
-      const totalSlides = slides.length;
-      
-      if (totalSlides <= 1) return;
-      
-      // Create indicators
-      for (let i = 0; i < totalSlides; i++) {
-        const dot = document.createElement("button");
-        dot.classList.add("carousel-dot");
-        if (i === 0) dot.classList.add("active");
-        dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
-        dotsContainer.appendChild(dot);
-      }
-      
-      const dots = carousel.querySelectorAll(".carousel-dot");
-      
-      function updateCarousel() {
-        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle("active", idx === currentIndex);
-        });
-      }
-      
-      function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel();
-      }
-      
-      function prevSlide() {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-      }
-      
-      nextBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        nextSlide();
-      });
-      
-      prevBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        prevSlide();
-      });
-      
-      dots.forEach((dot, idx) => {
-        dot.addEventListener("click", (e) => {
-          e.stopPropagation();
-          currentIndex = idx;
-          updateCarousel();
-        });
-      });
-      
-      // Auto-play every 5 seconds (pauses on hover)
-      let autoPlayInterval = setInterval(nextSlide, 5000);
-      
-      carousel.addEventListener("mouseenter", () => {
-        clearInterval(autoPlayInterval);
-      });
-      
-      carousel.addEventListener("mouseleave", () => {
-        autoPlayInterval = setInterval(nextSlide, 5000);
-      });
-    });
-  }
-  initShowcaseCarousels();
+
 
   // ==========================================================================
   // 17. ACHIEVEMENTS TEXT POPUPS PREVIEW SYSTEM
@@ -1204,4 +1148,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   prefetchCaseStudyImages();
+
+  // ==========================================================================
+  // 19. MAIN PAGE SCROLL-TO-TOP BUTTON
+  // ==========================================================================
+  function initPageScrollTop() {
+    const pageScrollTopBtn = document.getElementById("page-scroll-top-btn");
+    if (!pageScrollTopBtn) return;
+
+    window.addEventListener("scroll", () => {
+      // Show button after 500px scroll depth
+      if (window.scrollY > 500) {
+        pageScrollTopBtn.classList.add("visible");
+      } else {
+        pageScrollTopBtn.classList.remove("visible");
+      }
+    }, { passive: true });
+
+    pageScrollTopBtn.addEventListener("click", () => {
+      if (typeof lenis !== "undefined" && lenis) {
+        lenis.scrollTo(0);
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    });
+  }
+  initPageScrollTop();
 });
