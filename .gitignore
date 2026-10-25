@@ -1,0 +1,14 @@
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build / scratch files
+node_modules/
+.gemini/
+*.log
+
+# Video / Large master assets guard
+*.mp4.bak
+*.tmp
+*.bak

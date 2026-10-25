@@ -365,6 +365,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // 7. INTERACTIVE GROWTH DASHBOARD
   // ==========================================================================
   const dashboardData = {
+    video: {
+      reach: "520k+",
+      ctr: "82% Ret.",
+      roi: "4K 60fps",
+      linePath: "M 0 85 Q 40 40 100 25 T 200 15 T 300 5",
+      bgPath: "M 0 100 L 0 85 Q 40 40 100 25 T 200 15 T 300 5 L 300 100 Z"
+    },
     meta: {
       reach: "100k+",
       ctr: "5.4%",
@@ -946,47 +953,97 @@ document.addEventListener("DOMContentLoaded", () => {
   // 17b. CASE STUDY MODAL CONTROLLER
   // ==========================================================================
   const projectData = {
-    meetsession: {
-      title: "MEETSESSION",
-      category: "Performance Marketing & Content Strategy",
+    devontech: {
+      title: "Devon Technologies & MEETSESSION",
+      category: "Brand Architecture · UI Motion · Growth Strategy",
       image: [
-        "images/Devon-images/devon1.jpeg",
-        "images/Devon-images/devon2.jpeg",
-        "images/Devon-images/devon4.jpeg"
+        "images/devon-work/optimized/1minimalist.jpg",
+        "images/devon-work/optimized/meet session screen2.jpg",
+        "images/devon-work/optimized/Devon Happy Customer Service Week.jpg",
+        "images/devon-work/optimized/Devon - Tuesday Post.jpg",
+        "images/devon-work/optimized/meet session screen.jpg",
+        "images/devon-work/optimized/WhatsApp Image 2025-09-29 at 04.06.48_ed6a11fc.jpg",
+        "images/devon-work/optimized/WhatsApp Image 2025-09-30 at 10.16.44_7237f61b.jpg",
+        "images/devon-work/optimized/2minimalist.jpg",
+        "images/devon-work/optimized/3minimalist.jpg",
+        "images/devon-work/optimized/5minimalist.jpg"
       ],
-      description: "An AI transcription app that converts speech to text and also provides summaries of conversations, meetings, and recordings.",
+      video: "videos/meet-session-animation.mp4",
+      poster: "images/devon-work/optimized/meet session screen2.jpg",
+      description: "Comprehensive brand ecosystem, UI explainer motion design, and product launch strategy for Devon Technologies and their flagship AI transcription app, MEETSESSION.",
+      challenge: "Launching complex AI audio transcription software into traditional Nigerian legal, corporate, and academic sectors where software onboarding friction was high and institutional trust had to be established instantly.",
+      action: "Architected a 10-part minimalist brand design system with strict typographic hierarchies, directed kinetic UI explainer animations, drafted an institutional 5-day content strategy (addressing judicial burnout, tech myths, and user pain points), and branded high-level executive events including the WIPO Brief & Brunch.",
+      result: "Scaled weekly active users from 0 to 500+ within the first 30 days, secured key legal institution relationships, and lowered customer acquisition cost across Meta and LinkedIn campaigns.",
+      liveUrl: "docs/WIPO_Brief_and_Brunch_Executive_Deck.pdf",
+      linkText: "Download Executive Brand Deck (WIPO PDF) →"
+    },
+    judicai: {
+      title: "JudicAI Brand & Content Architecture",
+      category: "Strategic Content Framework · LegalTech Campaign",
+      image: [
+        "images/devon-work/optimized/Devon - Tuesday Post.jpg",
+        "images/devon-work/optimized/Devon Happy Customer Service Week - 2.jpg",
+        "images/devon-work/optimized/1minimalist.jpg",
+        "images/devon-work/optimized/6minimalist.jpg",
+        "images/devon-work/optimized/7minimalist.jpg"
+      ],
+      video: "videos/judicai-campaign-reel.mp4",
+      poster: "images/devon-work/optimized/Devon - Tuesday Post.jpg",
+      description: "A 5-day omnichannel narrative architecture engineered for JudicAI to dismantle systemic barriers to legal tech adoption across West Africa.",
+      challenge: "Overcoming prevailing market myths that digital platforms cannot be trusted for sensitive legal workflows, and communicating systemic value to overworked judges and attorneys.",
+      action: "Created a structured 5-day campaign framework covering founder thought leadership, BTS transparency, myth-busting infographics, community pain points (delays, literacy, costs), and human stories surrounding Nigerian judicial wellbeing.",
+      result: "Elevated brand credibility, sparked high viral engagement in LinkedIn legal communities, and generated dozens of qualified enterprise demo inquiries.",
+      liveUrl: "docs/JudicAI_5_Day_Content_Strategy.docx",
+      linkText: "Download Full 5-Day Strategy Plan (DOCX) →"
+    },
+    meetsession: {
+      title: "Devon Technologies & MEETSESSION",
+      category: "Brand Architecture · UI Motion · Growth Strategy",
+      image: [
+        "images/devon-work/optimized/1minimalist.jpg",
+        "images/devon-work/optimized/meet session screen2.jpg",
+        "images/devon-work/optimized/Devon Happy Customer Service Week.jpg"
+      ],
+      video: "videos/meet-session-animation.mp4",
+      poster: "images/devon-work/optimized/meet session screen2.jpg",
+      description: "An AI transcription app that converts speech to text and provides automated summaries of meetings and recordings.",
       challenge: "Low initial user activation due to high product complexity.",
-      action: "Designed a simplified onboarding flow and targeted social campaign tutorials.",
-      result: "Grew weekly active users from 0 to 500 in the first 30 days.",
-      liveUrl: ""
+      action: "Designed a simplified onboarding flow, animated UI tutorials, and targeted social campaign funnels.",
+      result: "Grew weekly active users from 0 to 500+ in the first 30 days.",
+      liveUrl: "docs/WIPO_Brief_and_Brunch_Executive_Deck.pdf",
+      linkText: "Download Executive Brand Deck (WIPO PDF) →"
     },
     wanahomes: {
-      title: "Wana Homes",
-      category: "Brand Identity & Print Design",
+      title: "Wana Brands: Luxury Apparel & Commercial Films",
+      category: "Commercial Video Production & Brand Identity",
       image: [
+        "images/devon-work/optimized/wana-clothing-poster.jpg",
+        "images/devon-work/optimized/wana-scent-poster.jpg",
         "images/wana-homes/wana1.jpeg",
         "images/wana-homes/wana2.jpeg",
         "images/wana-homes/wana3.jpeg",
         "images/wana-homes/wana4.jpeg",
         "images/wana-homes/wana5.jpeg"
       ],
-      description: "A real estate agency focusing on modern residential properties.",
-      challenge: "Inconsistent visual branding across channels diluted brand trust.",
-      action: "Designed a cohesive brand system, digital templates, and physical print assets.",
-      result: "Launched a unified brand presence across web, social, and print materials.",
+      video: "videos/wana-clothing.mov",
+      poster: "images/devon-work/optimized/wana-clothing-poster.jpg",
+      description: "Luxury brand ecosystem spanning premium apparel, residential developments, and signature fragrance collections.",
+      challenge: "Translating tactile luxury products (clothing textiles and artisanal perfumes) into compelling digital video formats that drive immediate buyer emotion.",
+      action: "Directed, edited, and color-graded high-velocity commercial reels with beat-synced pacing, sensory macro cinematography, sound design layering, and cohesive typography across digital and print touchpoints.",
+      result: "Elevated the brand presence to luxury editorial tier, driving strong social engagement and high-ticket customer inquiries.",
       liveUrl: ""
     },
     stoneoak: {
-      title: "Stone Oak",
-      category: "Corporate Identity & Design Systems",
+      title: "Stone Oak Advisory",
+      category: "Corporate Identity & Executive Editorial Systems",
       image: [
         "images/stone-oak/stoneoak1.jpeg",
         "images/stone-oak/stoneoak2.jpeg"
       ],
-      description: "A premium corporate brand offering corporate consulting services.",
-      challenge: "Dated marketing assets failed to reflect high-ticket consulting value.",
-      action: "Developed an executive typography standard, layout systems, and print assets.",
-      result: "Established a premium editorial brand identity that supported high-value consulting bids.",
+      description: "A premier corporate advisory and management consultancy serving high-net-worth clients.",
+      challenge: "Dated marketing assets failed to reflect high-ticket consulting authority, weakening conversion during enterprise procurement pitches.",
+      action: "Developed an executive serif and monospace typography standard, editorial layout systems, and corporate presentation guidelines.",
+      result: "Established an authoritative identity that supported multi-million Naira consulting bids and institutional credibility.",
       liveUrl: ""
     }
   };
@@ -1018,24 +1075,41 @@ document.addEventListener("DOMContentLoaded", () => {
  
       lastFocusedEl = triggerEl;
  
-      // Populate dynamic horizontal gallery images
+      // Populate dynamic horizontal gallery images & videos
       if (modalGallery) {
-        modalGallery.scrollLeft = 0; // Reset gallery scroll position to first image
-        modalGallery.innerHTML = ""; // Clear existing images
+        modalGallery.scrollLeft = 0; // Reset gallery scroll position to first slide
+        modalGallery.innerHTML = ""; // Clear existing media
         if (modalDots) modalDots.innerHTML = ""; // Clear existing dots
         
-        const images = Array.isArray(data.image) ? data.image : [data.image];
-        activeProjectImages = images;
-        images.forEach((imgUrl, index) => {
-          const img = document.createElement("img");
-          img.src = imgUrl;
-          img.alt = `${data.title} Case Study Image ${index + 1}`;
-          img.className = "modal-gallery-img";
-          img.loading = "lazy";
-          modalGallery.appendChild(img);
+        const galleryItems = [];
+        if (data.video) {
+          galleryItems.push({ type: "video", src: data.video, poster: data.poster || "" });
+        }
+        const images = Array.isArray(data.image) ? data.image : (data.image ? [data.image] : []);
+        images.forEach(img => galleryItems.push({ type: "image", src: img }));
+        
+        activeProjectImages = galleryItems;
+        galleryItems.forEach((item, index) => {
+          if (item.type === "video") {
+            const vid = document.createElement("video");
+            vid.src = item.src;
+            if (item.poster) vid.poster = item.poster;
+            vid.controls = true;
+            vid.playsInline = true;
+            vid.preload = "metadata";
+            vid.className = "modal-gallery-img modal-gallery-vid";
+            modalGallery.appendChild(vid);
+          } else {
+            const img = document.createElement("img");
+            img.src = item.src;
+            img.alt = `${data.title} Case Study Media ${index + 1}`;
+            img.className = "modal-gallery-img";
+            img.loading = "lazy";
+            modalGallery.appendChild(img);
+          }
           
           // Generate slide dots
-          if (images.length > 1 && modalDots) {
+          if (galleryItems.length > 1 && modalDots) {
             const dot = document.createElement("button");
             dot.className = `modal-gallery-dot${index === 0 ? " active" : ""}`;
             dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
@@ -1051,7 +1125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         // Listen to horizontal scrolling to toggle active dot
-        if (images.length > 1 && modalDots) {
+        if (galleryItems.length > 1 && modalDots) {
           modalGallery.addEventListener("scroll", () => {
             const slideWidth = modalGallery.clientWidth;
             if (slideWidth === 0) return;
@@ -1078,6 +1152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (modalLinkContainer && modalLink) {
         if (data.liveUrl) {
           modalLink.href = data.liveUrl;
+          modalLink.textContent = data.linkText || "Visit Live Project →";
           modalLinkContainer.style.display = "block";
         } else {
           modalLinkContainer.style.display = "none";
@@ -1311,4 +1386,323 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   initPageScrollTop();
+
+  // ==========================================================================
+  // 20. VIDEO EDITING & MOTION SHOWCASE CONTROLLER
+  // ==========================================================================
+  function initVideoShowcase() {
+    const filterBtns = document.querySelectorAll(".video-filter-btn");
+    const videoCards = document.querySelectorAll(".video-card");
+    const theaterModal = document.getElementById("video-theater-modal");
+    const theaterVid = document.getElementById("theater-video-element");
+    const theaterTitle = document.getElementById("theater-video-title");
+    const theaterDesc = document.getElementById("theater-video-desc");
+    const theaterBadge = document.getElementById("theater-video-badge");
+    const theaterDuration = document.getElementById("theater-video-duration");
+    const theaterTags = document.getElementById("theater-video-tags");
+    const theaterClose = document.getElementById("video-theater-close");
+
+    // 1. Filtering
+    if (filterBtns.length && videoCards.length) {
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const filter = btn.getAttribute("data-filter");
+          filterBtns.forEach(b => {
+            b.classList.remove("active");
+            b.setAttribute("aria-selected", "false");
+          });
+          btn.classList.add("active");
+          btn.setAttribute("aria-selected", "true");
+
+          videoCards.forEach(card => {
+            const cat = card.getAttribute("data-category");
+            if (filter === "all" || cat === filter) {
+              card.style.display = "flex";
+              if (typeof gsap !== "undefined" && !prefersReducedMotion) {
+                gsap.fromTo(card, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" });
+              }
+            } else {
+              card.style.display = "none";
+              const vid = card.querySelector("video");
+              if (vid && !vid.paused) vid.pause();
+            }
+          });
+        });
+      });
+    }
+
+    // 2. Play / Pause & Sound Toggles
+    videoCards.forEach(card => {
+      const vid = card.querySelector(".showcase-video");
+      const playBtn = card.querySelector(".video-play-btn");
+      const soundBtn = card.querySelector(".video-sound-btn");
+      const fullscreenBtn = card.querySelector(".video-fullscreen-btn");
+      const mediaWrapper = card.querySelector(".video-media-wrapper");
+
+      if (!vid) return;
+
+      const togglePlay = () => {
+        if (vid.paused) {
+          document.querySelectorAll(".showcase-video").forEach(v => {
+            if (v !== vid && !v.paused) {
+              v.pause();
+              const otherCard = v.closest(".video-card");
+              if (otherCard) otherCard.classList.remove("is-playing");
+            }
+          });
+          vid.play().then(() => {
+            card.classList.add("is-playing");
+          }).catch(() => {});
+        } else {
+          vid.pause();
+          card.classList.remove("is-playing");
+        }
+      };
+
+      if (playBtn) {
+        playBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          togglePlay();
+        });
+      }
+
+      if (mediaWrapper) {
+        mediaWrapper.addEventListener("click", (e) => {
+          if (e.target.closest(".video-controls-quick")) return;
+          togglePlay();
+        });
+      }
+
+      if (soundBtn) {
+        soundBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          vid.muted = !vid.muted;
+          const iconMuted = soundBtn.querySelector(".icon-muted");
+          const iconUnmuted = soundBtn.querySelector(".icon-unmuted");
+          if (vid.muted) {
+            if (iconMuted) iconMuted.style.display = "block";
+            if (iconUnmuted) iconUnmuted.style.display = "none";
+          } else {
+            if (iconMuted) iconMuted.style.display = "none";
+            if (iconUnmuted) iconUnmuted.style.display = "block";
+          }
+        });
+      }
+
+      // 3. Theater Fullscreen Lightbox
+      if (fullscreenBtn && theaterModal && theaterVid) {
+        fullscreenBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          vid.pause();
+          card.classList.remove("is-playing");
+
+          const title = card.querySelector(".video-title")?.textContent || "";
+          const desc = card.querySelector(".video-desc")?.textContent || "";
+          const badge = card.querySelector(".video-badge")?.textContent || "";
+          const duration = card.querySelector(".video-duration")?.textContent || "";
+          const tags = card.querySelectorAll(".video-tags .vtag");
+          const src = vid.querySelector("source")?.getAttribute("src") || vid.src;
+
+          theaterVid.src = src;
+          theaterVid.poster = vid.poster || "";
+          if (theaterTitle) theaterTitle.textContent = title;
+          if (theaterDesc) theaterDesc.textContent = desc;
+          if (theaterBadge) theaterBadge.textContent = badge;
+          if (theaterDuration) theaterDuration.textContent = duration;
+          if (theaterTags) {
+            theaterTags.innerHTML = "";
+            tags.forEach(t => {
+              const span = document.createElement("span");
+              span.className = "vtag";
+              span.textContent = t.textContent;
+              theaterTags.appendChild(span);
+            });
+          }
+
+          theaterModal.classList.add("active");
+          theaterModal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          if (typeof lenis !== "undefined" && lenis) lenis.stop();
+
+          theaterVid.play().catch(() => {});
+        });
+      }
+    });
+
+    const closeTheater = () => {
+      if (!theaterModal) return;
+      theaterModal.classList.remove("active");
+      theaterModal.setAttribute("aria-hidden", "true");
+      if (theaterVid) {
+        theaterVid.pause();
+        theaterVid.currentTime = 0;
+        theaterVid.src = "";
+      }
+      document.body.style.overflow = "";
+      if (typeof lenis !== "undefined" && lenis) lenis.start();
+    };
+
+    if (theaterClose) theaterClose.addEventListener("click", closeTheater);
+    if (theaterModal) {
+      theaterModal.addEventListener("click", (e) => {
+        if (e.target === theaterModal) closeTheater();
+      });
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && theaterModal && theaterModal.classList.contains("active")) {
+        closeTheater();
+      }
+    });
+
+    if ("IntersectionObserver" in window) {
+      const vidObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            const vid = entry.target;
+            if (!vid.paused) {
+              vid.pause();
+              const card = vid.closest(".video-card");
+              if (card) card.classList.remove("is-playing");
+            }
+          }
+        });
+      }, { threshold: 0.25 });
+
+      document.querySelectorAll(".showcase-video").forEach(v => vidObserver.observe(v));
+    }
+  }
+  initVideoShowcase();
+
+  // ==========================================================================
+  // 21. MINIMALIST BRAND ARCHITECTURE CAROUSEL CONTROLLER
+  // ==========================================================================
+  function initBrandArchitectureCarousel() {
+    const activeImg = document.getElementById("branding-active-img");
+    const slideTitle = document.getElementById("branding-slide-title");
+    const slideDesc = document.getElementById("branding-slide-desc");
+    const counter = document.getElementById("branding-counter");
+    const prevBtn = document.getElementById("branding-prev-btn");
+    const nextBtn = document.getElementById("branding-next-btn");
+    const dotsContainer = document.getElementById("branding-slide-dots");
+
+    if (!activeImg || !dotsContainer) return;
+
+    const slides = [
+      {
+        src: "images/devon-work/optimized/1minimalist.jpg",
+        title: "01 · Core Brand Geometry & Foundations",
+        desc: "Establishing the visual bedrock: strict geometric alignment, high-contrast monochrome values, and purposeful negative space that signals enterprise authority."
+      },
+      {
+        src: "images/devon-work/optimized/2minimalist.jpg",
+        title: "02 · Structural Grid & Visual Anchors",
+        desc: "Mathematical layout grids that align copy, headers, and UI metrics into an intuitive scanning hierarchy for executive decision-makers."
+      },
+      {
+        src: "images/devon-work/optimized/3minimalist.jpg",
+        title: "03 · Typographic Restraint & Pairings",
+        desc: "Curated typography pairings combining editorial serif grace with modern sans-serif legibility and monospace technical precision."
+      },
+      {
+        src: "images/devon-work/optimized/4minimalist.jpg",
+        title: "04 · Negative Space & Cognitive Breathing Room",
+        desc: "Removing decorative clutter so the core message and high-value value proposition dominate the page."
+      },
+      {
+        src: "images/devon-work/optimized/5minimalist.jpg",
+        title: "05 · Monochromatic Contrast & Tone",
+        desc: "Deep blacks, crisp silvers, and balanced midtones creating an unmistakable sense of institutional trust and permanence."
+      },
+      {
+        src: "images/devon-work/optimized/6minimalist.jpg",
+        title: "06 · Editorial Layout Cadence",
+        desc: "Magazine-grade layout rhythm designed for long-form thought leadership, investor pitch decks, and legal briefs."
+      },
+      {
+        src: "images/devon-work/optimized/7minimalist.jpg",
+        title: "07 · Spatial Proportions & Macro Ratios",
+        desc: "Harmonizing text blocks, metric counters, and imagery using the golden ratio and modular scale."
+      },
+      {
+        src: "images/devon-work/optimized/8minimalist.jpg",
+        title: "08 · Minimalist Iconography & Accents",
+        desc: "Functional hairline vector accents and geometric indicators that guide navigation without distraction."
+      },
+      {
+        src: "images/devon-work/optimized/9minimalist.jpg",
+        title: "09 · Multi-Channel Brand Cohesion",
+        desc: "Translating the visual system seamlessly from mobile app onboarding to billboard banners and executive whitepapers."
+      },
+      {
+        src: "images/devon-work/optimized/10minimalist.jpg",
+        title: "10 · Scaling Identity for Global Growth",
+        desc: "Flexible design architecture that maintains crystalline brand recognition across diverse international tech ecosystems."
+      }
+    ];
+
+    let currentIndex = 0;
+
+    dotsContainer.innerHTML = "";
+    slides.forEach((_, idx) => {
+      const dot = document.createElement("button");
+      dot.className = `branding-dot${idx === 0 ? " active" : ""}`;
+      dot.setAttribute("aria-label", `Slide ${idx + 1}`);
+      dot.addEventListener("click", () => goToSlide(idx));
+      dotsContainer.appendChild(dot);
+    });
+
+    function updateSlideUI() {
+      const s = slides[currentIndex];
+      if (typeof gsap !== "undefined" && !prefersReducedMotion) {
+        gsap.to(activeImg, {
+          opacity: 0.2,
+          scale: 0.98,
+          duration: 0.15,
+          onComplete: () => {
+            activeImg.src = s.src;
+            activeImg.alt = s.title;
+            gsap.to(activeImg, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" });
+          }
+        });
+      } else {
+        activeImg.src = s.src;
+        activeImg.alt = s.title;
+      }
+
+      if (slideTitle) slideTitle.textContent = s.title;
+      if (slideDesc) slideDesc.textContent = s.desc;
+      if (counter) counter.textContent = `${String(currentIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+
+      const dots = dotsContainer.querySelectorAll(".branding-dot");
+      dots.forEach((d, i) => {
+        if (i === currentIndex) d.classList.add("active");
+        else d.classList.remove("active");
+      });
+    }
+
+    function goToSlide(index) {
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+      currentIndex = index;
+      updateSlideUI();
+    }
+
+    if (prevBtn) prevBtn.addEventListener("click", () => goToSlide(currentIndex - 1));
+    if (nextBtn) nextBtn.addEventListener("click", () => goToSlide(currentIndex + 1));
+
+    const stage = document.querySelector(".branding-inspector");
+    if (stage) {
+      stage.setAttribute("tabindex", "0");
+      stage.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          goToSlide(currentIndex - 1);
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          goToSlide(currentIndex + 1);
+        }
+      });
+    }
+  }
+  initBrandArchitectureCarousel();
 });
